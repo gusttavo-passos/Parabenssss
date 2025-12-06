@@ -177,11 +177,16 @@ p{margin:2rem 0;max-width:44ch;color:rgba(42,24,64,0.9);}
   <source src="./musica.mp3" type="audio/mpeg">
 </audio>
 <script>
-window.addEventListener("click",()=>{
-  const audio=document.getElementById("bgm");
-  audio.volume=0.5;
-  audio.play();
-},{once:true});
+  window.addEventListener("touchstart", startMusic, { once: true });
+function startMusic() {
+  const audio = document.getElementById("bgm");
+  audio.volume = 0.5;
+  audio.play().catch(() => {}); // previne erro se não puder
+  window.removeEventListener("scroll", startMusic);
+}
+
+window.addEventListener("scroll", startMusic, { once: true });
+
 </script>
 
 <div class="main-content">
