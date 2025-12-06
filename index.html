@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Feliz Aniversário — Júlia 20 anos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg-1: #FDE2F3;
+  --bg-2: #E5BEEC;
+  --accent-1: #C9A7EB;
+  --accent-2: #9384D1;
+  --muted: #FFE6F7;
+  --text: #2a1840;
+  --white: #ffffff;
+  --glass: rgba(255,255,255,0.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  height:100%;
+  font-family:"Comfortaa",sans-serif;
+  background:var(--bg-1);
+  color:var(--text);
+}
+
+.main-content{
+  height:100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.section{
+  min-height:100vh;
+  padding:5.5rem 1.2rem 4.5rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  scroll-snap-align:start;
+  text-align:center;
+  position:relative;
+}
+
+h1{font-size:2.4rem;letter-spacing:0.08em;margin:0;}
+p{margin:2rem 0;max-width:44ch;color:rgba(42,24,64,0.9);}
+
+/* SEÇÕES */
+.sec-hero{background:linear-gradient(180deg,var(--bg-1),var(--muted))}
+.sec-words{background:linear-gradient(180deg,var(--muted),var(--bg-2))}
+.sec-cake{background:linear-gradient(180deg,var(--bg-2),var(--accent-1))}
+.sec-final{background:linear-gradient(180deg,var(--accent-1),var(--accent-2));color:var(--white)}
+
+/* CARD */
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(6px);
+  border-radius:18px;
+  padding:18px;
+  width:100%;
+  max-width:520px;
+  box-shadow:0 6px 18px rgba(20,10,40,0.08);
+}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;
+  gap:.6rem;
+  align-items:center;
+  justify-content:center;
+  padding:.9rem 1.1rem;
+  border-radius:12px;
+  border:none;
+  background:var(--accent-2);
+  color:var(--white);
+  font-weight:700;
+  cursor:pointer;
+  transition:.14s;
+}
+.btn:active{transform:translateY(2px);}
+
+.electric-btn{
+  background:linear-gradient(90deg,var(--accent-2),#ff76ce);
+  padding:1rem 1.2rem;
+  border-radius:12px;
+  color:white;
+  border:none;
+  font-size:1rem;
+  font-weight:800;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.electric-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  left:-120%;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,0.55),transparent);
+  animation:shine 2.2s infinite;
+}
+@keyframes shine{60%{left:140%}}
+
+.continue-row{
+  position:absolute;
+  bottom:22px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+}
+.continue{
+  padding:.6rem 1rem;
+  border-radius:999px;
+  border:2px solid rgba(147,132,209,0.25);
+  background:white;
+  color:var(--accent-2);
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* BOLO */
+.cake{
+  width:260px;
+  margin: 25% 5% 15% 5%;
+  cursor:pointer;
+  position:relative;
+}
+.layer{height:60px;border-radius:14px;box-shadow:0 8px 14px rgba(0,0,0,0.15);margin-top:8px;}
+.layer1{background:linear-gradient(90deg,#ff9bcf,#ff76b9)}
+.layer2{background:linear-gradient(90deg,#ffd2ec,#ffaad9)}
+.layer3{background:linear-gradient(90deg,#fff0f9,#ffd7eb)}
+
+.candles{position:absolute;top:-45px;left:50%;transform:translateX(-50%);display:flex;gap:12px;}
+.candle{width:14px;height:38px;border-radius:6px;background:linear-gradient(45deg,#fff,#ffe2f3);position:relative;}
+.flame{width:14px;height:20px;background:radial-gradient(circle,#ffdc6f,#ff8c00);border-radius:50%;position:absolute;top:-20px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 0 6px rgba(255,150,0,0.6));animation:flame .22s infinite alternate;}
+@keyframes flame{from{transform:translateX(-50%) scale(1)} to{transform:translateX(-50%) scale(1.22)}}
+
+/* PEQUENAS VERDADES */
+.truths-container{display:flex;gap:20px;margin-top:25px;flex-wrap:wrap;justify-content:center;}
+.truth-card{width:130px;height:130px;perspective:900px;cursor:pointer;}
+.truth-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .66s;}
+.truth-card.flipped .truth-inner{transform:rotateY(180deg);}
+.truth-front, .truth-back{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  border-radius:14px; backface-visibility:hidden; padding:12px; font-weight:700; text-align:center;
+}
+.truth-front{background:var(--accent-2); color:white; font-size:1.1rem;}
+.truth-back{background:white; color:var(--text); transform:rotateY(180deg); font-size:.95rem; box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+
+/* CONFETES DE FUNDO CONSTANTES */
+.confetti-bg{
+  position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9998;
+}
+.confetti-piece{position:absolute;width:8px;height:14px;opacity:.8;border-radius:4px;animation:confettiFall linear infinite; z-index:9999; pointer-events:none;}
+@keyframes confettiFall{0%{transform:translateY(-10vh) rotate(0deg)}100%{transform:translateY(120vh) rotate(360deg)}}
+
+/* BALÕES CONSTANTES */
+.fall-balloon{position:fixed;width:45px;height:60px;border-radius:50%;opacity:0.85;z-index:9999;animation:balloonFall linear infinite;pointer-events:none;}
+@keyframes balloonFall{0%{transform:translateY(-20vh) rotate(0deg)}100%{transform:translateY(140vh) rotate(20deg)}}
+
+.main-content::-webkit-scrollbar{display:none}
+
+@media(min-width:720px){h1{font-size:3.1rem} p{font-size:1.05rem} .cake{width:320px}}
+</style>
+</head>
+<body>
+
+<div class="confetti-bg" id="confettiContainer"></div>
+<div id="balloonContainer"></div>
+
+<audio id="bgm" autoplay loop>
+  <source src="./musica.mp3" type="audio/mpeg">
+</audio>
+<script>
+window.addEventListener("click",()=>{
+  const audio=document.getElementById("bgm");
+  audio.volume=0.5;
+  audio.play();
+},{once:true});
+</script>
+
+<div class="main-content">
+  <!-- SEÇÃO 1 -->
+  <section class="section sec-hero" id="s1">
+    <div class="card">
+      <h1>Feliz 20 anos, Júlia! 🎉</h1>
+      <p>Hoje é seu dia — doce, leve, especial. Que venha a magia!</p>
+    </div>
+    <div class="continue-row">
+      <button class="continue" data-target="s2">Continuar ➜</button>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2 -->
+  <section class="section sec-words" id="s2">
+    <div class="card">
+      <h1>Você é luz ✨</h1>
+      <p>Deus caprichou nos detalhes ao te criar. E fez de você alguém com um brilho único!</p>
+    </div>
+    <div class="continue-row">
+      <button class="continue" data-target="s3">Continuar ➜</button>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3 BOLO -->
+  <section class="section sec-cake" id="s3">
+    <div class="card">
+      <h1>Bolo de aniversário 🎂</h1>
+      <p>Toque no bolo para apagar as velas!</p>
+      <div class="cake" onclick="toggleFlames()">
+        <div class="candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+        <div class="layer layer1"></div>
+        <div class="layer layer2"></div>
+        <div class="layer layer3"></div>
+      </div>
+      <br>
+      <button class="electric-btn" id="pedidoBtn">Fazer um Pedido 🤩</button>
+    </div>
+    <div class="continue-row">
+      <button class="continue" data-target="s4">Continuar ➜</button>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4 PEQUENAS VERDADES -->
+  <section class="section sec-words" id="s4">
+    <div class="card">
+      <h1>Pequenas Verdades ✨</h1>
+      <p>Clique nos quadradinhos para descobrir algo especial:</p>
+      <div class="truths-container">
+        <div class="truth-card" onclick="flipTruth(this)">
+          <div class="truth-inner">
+            <div class="truth-front">🌟</div>
+            <div class="truth-back">Nunca deixe o medo apagar seus sonhos.</div>
+          </div>
+        </div>
+        <div class="truth-card" onclick="flipTruth(this)">
+          <div class="truth-inner">
+            <div class="truth-front">🧗‍♀️</div>
+            <div class="truth-back">Obstáculos existem para mostrar o quanto você é forte.</div>
+          </div>
+        </div>
+        <div class="truth-card" onclick="flipTruth(this)">
+          <div class="truth-inner">
+            <div class="truth-front">🎥</div>
+            <div class="truth-back">Você é dona da sua própria história.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="continue-row">
+      <button class="continue" data-target="s5">Continuar ➜</button>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5 FINAL -->
+  <section class="section sec-final" id="s5">
+    <div class="card" style="background:transparent;box-shadow:none">
+      <h1>✨ Parabéns, Júlia ✨</h1>
+      <p style="color:white">Hoje e sempre, brilhe. Que o Senhor guie seus caminhos.</p>
+    </div>
+    <button class="btn" id="finalShare" style="background:white;color:var(--accent-2)">Enviar abraço virtual</button>
+  </section>
+</div>
+
+<script>
+/* NAVEGAÇÃO */
+document.querySelectorAll(".continue").forEach(btn=>{
+  btn.onclick=()=>{
+    const t=btn.dataset.target;
+    document.getElementById(t).scrollIntoView({behavior:"smooth"});
+  }
+});
+
+/* VELAS */
+let flamesOn=true;
+function toggleFlames(){
+  flamesOn=!flamesOn;
+  document.querySelectorAll(".flame")
+    .forEach(f=>f.style.display=flamesOn?"block":"none");
+  if(!flamesOn){explodeConfetti();launchBalloons();}
+}
+
+/* CONFETE */
+function explodeConfetti(){
+  for(let i=0;i<45;i++){
+    const c=document.createElement("div");
+    c.style.position="fixed";
+    c.style.top="-10vh";
+    c.style.left=Math.random()*100+"vw";
+    c.style.width="12px";
+    c.style.height="12px";
+    c.style.borderRadius="50%";
+    c.style.background=`hsl(${Math.random()*360},80%,70%)`;
+    c.style.zIndex=3000;
+    c.style.transition="transform 2.8s linear, opacity 2.8s";
+    document.body.appendChild(c);
+    requestAnimationFrame(()=>{c.style.transform=`translateY(120vh) rotate(${Math.random()*720}deg)`;c.style.opacity=0;});
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+/* BALÕES */
+function launchBalloons(){
+  for(let i=0;i<5;i++){
+    const b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.bottom="-20vh";
+    b.style.width="50px";
+    b.style.height="65px";
+    b.style.background=`hsl(${Math.random()*360},80%,75%)`;
+    b.style.transition="transform 5.5s ease-in, opacity 5.5s";
+    document.body.appendChild(b);
+    requestAnimationFrame(()=>{b.style.transform="translateY(-140vh)";b.style.opacity=0;});
+    setTimeout(()=>b.remove(),5600);
+  }
+}
+
+/* BOTÃO ELÉTRICO */
+document.getElementById("pedidoBtn").onclick=()=>{alert("✨ Pedido feito com sucesso! ✨");}
+
+/* COMPARTILHAR */
+document.getElementById("finalShare").onclick=async()=>{
+  const text="Parabéns, Júlia! 🎉✨ Você é incrível!";
+  await navigator.clipboard.writeText(text);
+  alert("Obrigado! 😁");
+}
+
+/* CONFETE DE FUNDO */
+const confettiContainer=document.getElementById("confettiContainer");
+function addBackgroundConfetti(){
+  for(let i=0;i<25;i++){
+    const c=document.createElement("div");
+    c.className="confetti-piece";
+    c.style.left=Math.random()*100+"vw";
+    c.style.animationDuration=(4+Math.random()*6)+"s";
+    c.style.animationDelay=Math.random()*4+"s";
+    c.style.background=`hsl(${Math.random()*360},80%,70%)`;
+    confettiContainer.appendChild(c);
+  }
+}
+addBackgroundConfetti();
+
+/* BALÕES CONSTANTES */
+const balloonContainer=document.getElementById("balloonContainer");
+function launchFallingBalloons(){
+  const b=document.createElement("div");
+  b.className="fall-balloon";
+  b.style.left=Math.random()*200+"vw";
+  b.style.animationDuration=(6+Math.random()*6)+"s";
+  b.style.background=`hsl(${Math.random()*360},80%,75%)`;
+  balloonContainer.appendChild(b);
+  setTimeout(()=>b.remove(),12000);
+}
+setInterval(launchFallingBalloons,1800);
+
+/* PEQUENAS VERDADES */
+function flipTruth(card){ card.classList.toggle("flipped"); }
+</script>
+
+</body>
+</html>
